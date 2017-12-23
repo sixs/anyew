@@ -12,7 +12,7 @@ class anyew():
 	def __init__(self):
 
 		print("######## 暗夜小说网spider ########")
-		print("功能如下：1、搜索 2、小说详情")
+		print("功能如下：1、搜索 2、小说详情 3、章节内容")
 		while(True):
 			operation = input("输入操作：")
 			if(int(operation) == 1):
@@ -25,11 +25,13 @@ class anyew():
 				book_info = self.getBookInfo(book_id)
 				print(book_info)
 			
-			else:
+			elif(int(operation) == 3):
+				url = input("输入章节url:")
+				self.getChapterContent(url)
 				break
 
 	### 解密，参数为章节页面返回的class为data-trda和data-trdkk的input的value值 ###
-	def descrypt(self, trda, trdkk):
+	def descrypt(self, data_trda, data_trdkk):
 
 		fp = open("./解密.js")
 		js = fp.read()
@@ -125,14 +127,15 @@ class anyew():
 	### 获取小说章节内容，参数为章节url，返回章节内容 ###
 	def getChapterContent(self, chapter_url):
 
-		req = session.get(chap_href)
+		req = self.session.get(chapter_url)
+		req.encoding = "utf-8"
 		html = BeautifulSoup(req.text,"html.parser")
 		data_trda = html.select(".data-trda")[0]["value"]
 		data_trdkk = html.select(".data-trdkk")[0]["value"]
 		data_trdkk = data_trdkk.split("=")[1]
 		## 数据解密
-		return_data = descrypt(trda,trdkk)
-		return return_data
+		return_data = self.descrypt(data_trda,data_trdkk)
+		print(return_data)
 
 def main():
 
