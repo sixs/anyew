@@ -12,9 +12,9 @@ class anyew():
 	def __init__(self):
 
 		print("######## 暗夜小说网spider ########")
-		print("功能如下：1、搜索 2、小说详情 3、章节内容")
+		# print("功能如下：1、搜索 2、小说详情 3、章节内容")
 		while(True):
-			operation = input("输入操作：")
+			operation = input("输入操作(1、搜索 2、小说详情 3、章节内容)：")
 			if(int(operation) == 1):
 				keyword = input("输入搜索关键词：")
 				search_list = self.search(keyword)
